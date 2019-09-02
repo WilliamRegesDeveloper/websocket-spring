@@ -1,10 +1,6 @@
-package br.com.gmartins;
+package br.com.gmartins.config;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -12,7 +8,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketService implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfigure implements WebSocketMessageBrokerConfigurer {
 
 
   @Override
@@ -23,15 +19,6 @@ public class WebSocketService implements WebSocketMessageBrokerConfigurer {
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
-    registry.addEndpoint("/chat");
-    registry.addEndpoint("/chat").withSockJS();
-  }
-
-
-  @MessageMapping("/app.message")
-  @SendTo("/topic/messages")
-  public OutputMessage send(Message message){
-    String format = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    return new OutputMessage(message.getFrom(), message.getText(), format);
+    registry.addEndpoint("/gs-guide-websocket").withSockJS();
   }
 }

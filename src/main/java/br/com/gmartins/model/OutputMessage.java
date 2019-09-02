@@ -1,4 +1,4 @@
-package br.com.gmartins;
+package br.com.gmartins.model;
 
 import java.time.LocalDate;
 
